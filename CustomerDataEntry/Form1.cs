@@ -9,6 +9,8 @@ using System.Threading.Tasks;
 using System.Configuration;
 using System.Data.SqlClient;
 using System.Windows.Forms;
+using System.Text.RegularExpressions;
+
 
 namespace CustomerDataEntry
 {
@@ -16,7 +18,7 @@ namespace CustomerDataEntry
     {
 
         Connector connector = new Connector();
-
+        R
         public Form1()
         {
             InitializeComponent();
@@ -56,7 +58,19 @@ namespace CustomerDataEntry
             }
             
         }
-        
+
+        private void firstName_TextChanged(object sender, EventArgs e)
+        {
+            Regex regex = new Regex("[0-9]");
+            if (regex.IsMatch(firstName.Text))
+            {
+                //Clears the first name textbox if a number is entered. 
+                //Currently working on a better way to do this. 
+                firstName.Clear();
+                
+                
+            }
+        }
     }
     public class Connector
 
