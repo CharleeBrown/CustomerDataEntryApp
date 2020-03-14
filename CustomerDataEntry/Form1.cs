@@ -46,18 +46,14 @@ namespace CustomerDataEntry
                 phoneNum.Text = phoneNum.Text + "-";
                 phoneNum.SelectionStart = phoneNum.TextLength;
             }
-            if (phoneNum.TextLength == 7)
-            {
-                phoneNum.Text = phoneNum.Text + "-";
-                phoneNum.SelectionStart = phoneNum.TextLength;
-            }
-       
+         
+        }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            if(string.IsNullOrEmpty(firstName.Text)||string.IsNullOrEmpty(lastName.Text)||string.IsNullOrEmpty(phoneNum.Text)||
+            if(string.IsNullOrWhiteSpace(firstName.Text)||string.IsNullOrWhiteSpace(lastName.Text)||string.IsNullOrWhiteSpace(phoneNum.Text)||
 
-                string.IsNullOrEmpty(companyName.Text))
+                string.IsNullOrWhiteSpace(companyName.Text))
                 {
                  MessageBox.Show("Enter missing information", "Customer Entry", MessageBoxButtons.OK);
                 }
@@ -100,49 +96,10 @@ namespace CustomerDataEntry
 
      
     }
-    public class Connector
-
-    {
+   
+            
+            
         
 
-        public  void SubmitData(string fName, string lastname, string phoneNum, string comp)
-        {
-            
-            SqlConnection mainConn = new SqlConnection();
-        
-            mainConn.ConnectionString = ConfigurationManager.ConnectionStrings["maindb"].ConnectionString;
-
-            string enterData = @"INSERT INTO customerInfo  VALUES ('"+fName+"' ,'"+ lastname + "' ,'"+phoneNum+"','"+comp+"');";
-
-            SqlCommand dataComm = new SqlCommand(enterData);
-
-            dataComm.Connection = mainConn;
-
-            using (mainConn)
-            {
-                try
-                {
-                    mainConn.Open();
-                    dataComm.ExecuteNonQuery();
-
-
-                }
-                catch (Exception)
-                {
-
-                    throw;
-                }
-                finally
-                {
-                    mainConn.Close();
-                    
-                }
-                
-                
-            }
-            
-            
-        }
-
-    }
+    
 }
