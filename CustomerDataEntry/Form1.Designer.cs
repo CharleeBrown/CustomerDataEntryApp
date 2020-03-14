@@ -53,6 +53,7 @@
             this.lastName.Name = "lastName";
             this.lastName.Size = new System.Drawing.Size(96, 20);
             this.lastName.TabIndex = 1;
+            this.lastName.TextChanged += new System.EventHandler(this.lastName_TextChanged);
             // 
             // phoneNum
             // 
