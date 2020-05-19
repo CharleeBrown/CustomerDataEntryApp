@@ -1,15 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Configuration;
 using System.Data.SqlClient;
 using System.Windows.Forms;
-using System.Text.RegularExpressions;
 
 
 public class Connector
@@ -19,11 +11,6 @@ public class Connector
 
     public void SubmitData(string fName, string lastname, string phoneNum, string comp)
     {
-
-        
-
-      
-      
 
         using (SqlConnection mainConn = new SqlConnection())
         {
@@ -36,10 +23,50 @@ public class Connector
 
             try
             {
-               
                 mainConn.Open();
                 dataComm.ExecuteNonQuery();
+            }
+            catch (Exception)
+            {
 
+                throw;
+            }
+            finally
+            {
+                mainConn.Close();
+            }
+
+        }
+    }
+
+    public ListViewItem PullData()
+    {
+        using (SqlConnection mainConn = new SqlConnection())
+        {
+            string pullComm = @"SELECT * FROM  customerInfo;";
+
+            SqlCommand dataComm = new SqlCommand(pullComm);
+
+            dataComm.Connection = mainConn;
+            mainConn.ConnectionString = ConfigurationManager.ConnectionStrings["maindb"].ConnectionString;
+            ListViewItem mainList = new ListViewItem();
+            try
+            {
+                mainConn.Open();
+                dataComm.ExecuteNonQuery();
+                SqlDataReader reader = dataComm.ExecuteReader();
+               
+                while (reader.Read())
+                {
+                    ListViewItem listItem = new ListViewItem(reader["id"].ToString());
+                    listItem.SubItems.Add(reader["fname"].ToString());
+                    listItem.SubItems.Add(reader["lastName"].ToString());
+                    listItem.SubItems.Add(reader["phoneNum"].ToString());
+                    listItem.SubItems.Add(reader["comp"].ToString());
+                    mainList = listItem;
+
+                }
+               
 
             }
             catch (Exception)
@@ -50,8 +77,11 @@ public class Connector
             finally
             {
                 mainConn.Close();
-
+                
             }
 
-
+            return mainList;
         }
+        
+    }
+}

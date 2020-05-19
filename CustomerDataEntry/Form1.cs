@@ -1,15 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Configuration;
-using System.Data.SqlClient;
-using System.Windows.Forms;
 using System.Text.RegularExpressions;
+using System.Windows.Forms;
 
 
 namespace CustomerDataEntry
@@ -46,18 +37,19 @@ namespace CustomerDataEntry
                 phoneNum.Text = phoneNum.Text + "-";
                 phoneNum.SelectionStart = phoneNum.TextLength;
             }
-         
+
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            if(string.IsNullOrWhiteSpace(firstName.Text)||string.IsNullOrWhiteSpace(lastName.Text)||string.IsNullOrWhiteSpace(phoneNum.Text)||
+            if (string.IsNullOrWhiteSpace(firstName.Text) || string.IsNullOrWhiteSpace(lastName.Text) || string.IsNullOrWhiteSpace(phoneNum.Text) ||
 
                 string.IsNullOrWhiteSpace(companyName.Text))
-                {
-                 MessageBox.Show("Enter missing information", "Customer Entry", MessageBoxButtons.OK);
-                }
-            else {
+            {
+                MessageBox.Show("Enter missing information", "Customer Entry", MessageBoxButtons.OK);
+            }
+            else
+            {
                 connector.SubmitData(firstName.Text, lastName.Text, phoneNum.Text, companyName.Text);
                 firstName.Text = " ";
                 lastName.Text = " ";
@@ -65,7 +57,7 @@ namespace CustomerDataEntry
                 companyName.Text = " ";
                 firstName.Focus();
             }
-            
+
         }
 
         private void firstName_TextChanged(object sender, EventArgs e)
@@ -76,8 +68,8 @@ namespace CustomerDataEntry
                 //Clears the first name textbox if a number is entered. 
                 //Currently working on a better way to do this. 
                 firstName.Clear();
-                
-                
+
+
             }
         }
 
@@ -94,12 +86,20 @@ namespace CustomerDataEntry
             }
         }
 
-     
-    }
-   
-            
-            
-        
+        private void viewData_Click(object sender, EventArgs e)
+        {
+            Connector conn = new Connector();
 
-    
+            dataForm form = new dataForm();
+            form.Show();
+           
+              
+        }
+    }
+
+
+
+
+
+
 }
