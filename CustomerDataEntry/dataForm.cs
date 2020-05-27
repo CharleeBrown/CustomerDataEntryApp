@@ -19,12 +19,12 @@ namespace CustomerDataEntry
             dataList.Columns.Add("Company");
 
             dataList.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
-            
-            dataList.Items.Add(lists);
+
+
 
             Connector conn = new Connector();
-
-          //  dataList.Items.Add(conn.PullData());
+            dataList.Items.Add(conn.PullData());
         }
+
     }
 }

@@ -92,8 +92,8 @@ namespace CustomerDataEntry
 
             dataForm form = new dataForm();
             form.Show();
-           
-              
+
+
         }
     }
 
